@@ -73,13 +73,13 @@ export function TaskBoard() {
       </div>
 
       {error && (
-        <div className="mb-6 rounded-md border border-danger/30 bg-danger/5 px-4 py-3 text-sm text-danger">
-          {error}
+        <div className="mb-6 rounded-md border border-red-500/30 bg-red-500/5 px-4 py-3 text-sm text-red-500">
+          {error}. Kindly refresh page
         </div>
       )}
 
       {isLoading ? (
-        <p className="text-sm text-muted-foreground">Loading tasks…</p>
+        <p className="text-sm gray-500-foreground">Loading tasks…</p>
       ) : (
         <div className="grid grid-cols-1 gap-5 md:grid-cols-3">
           {COLUMNS.map((column) => {

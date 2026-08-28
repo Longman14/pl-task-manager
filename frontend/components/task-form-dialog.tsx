@@ -60,7 +60,7 @@ export function TaskFormDialog({
     if (errors[key]) setErrors((prev) => ({ ...prev, [key]: undefined }));
   }
 
-  async function handleSubmit(e: React.FormEvent) {
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     const fieldErrors = validateTaskForm(values);
     if (Object.keys(fieldErrors).length > 0) {
@@ -99,7 +99,7 @@ export function TaskFormDialog({
             placeholder="e.g. Write the API docs"
             aria-invalid={!!errors.title}
           />
-          {errors.title && <p className="text-xs text-danger">{errors.title}</p>}
+          {errors.title && <p className="text-xs text-red-500">{errors.title}</p>}
         </div>
 
         <div className="space-y-1.5">
@@ -111,7 +111,7 @@ export function TaskFormDialog({
             placeholder="Optional details"
             aria-invalid={!!errors.description}
           />
-          {errors.description && <p className="text-xs text-danger">{errors.description}</p>}
+          {errors.description && <p className="text-xs text-red-500">{errors.description}</p>}
         </div>
 
         <div className="grid grid-cols-2 gap-3">
@@ -147,24 +147,29 @@ export function TaskFormDialog({
           <Label htmlFor="dueDate">Due date</Label>
           <Input
             id="dueDate"
+            min={new Date().toISOString().split('T')[0]}
             className="p-3"
             type="date"
             value={values.dueDate}
             onChange={(e) => set("dueDate", e.target.value)}
             aria-invalid={!!errors.dueDate}
           />
-          {errors.dueDate && <p className="text-xs text-danger">{errors.dueDate}</p>}
+          {errors.dueDate && <p className="text-xs text-red-500">{errors.dueDate}</p>}
         </div>
 
         {submitError && (
-          <p className="rounded-md bg-danger/10 px-3 py-2 text-xs text-danger">{submitError}</p>
+          <p className="rounded-md bg-red-500/10 px-3 py-2 text-xs text-red-500">{submitError}</p>
         )}
 
         <div className="flex justify-end gap-2 pt-2">
           <Button className="p-4 cursor-pointer" type="button" variant="outline" onClick={onClose}>
             Cancel
           </Button>
-          <Button className="p-4 cursor-pointer" type="submit" disabled={isSubmitting}>
+          <Button 
+            className="p-4 cursor-pointer" 
+            type="submit" 
+            disabled={isSubmitting || !values.title.trim() || !values.status || !values.priority || !values.dueDate}
+          >
             {isSubmitting ? "Saving…" : task ? "Save changes" : "Create task"}
           </Button>
         </div>
