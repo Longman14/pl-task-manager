@@ -14,7 +14,7 @@ export const STATUS_BAR: Record<Task["status"], string> = {
 };
 
 export const PRIORITY_LABEL: Record<Task["priority"], string> = {
-  LOW: "Low priority",
-  MEDIUM: "Medium priority",
-  HIGH: "High priority",
+  LOW: "Low",
+  MEDIUM: "Medium",
+  HIGH: "High",
 };

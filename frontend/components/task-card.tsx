@@ -30,17 +30,20 @@ export function TaskCard({
       <span className={cn("absolute left-0 top-0 h-full w-1", STATUS_BAR[task.status])} aria-hidden="true" />
       <div className="flex items-start justify-between gap-2 p-3">
         <div className="min-w-0 flex-1">
-          <p className="truncate text-sm font-medium text-ink">{task.title}</p>
+          <p className="truncate text-sm font-bold text-ink md:text-base">{task.title}</p>
           {task.description && (
-            <p className="mt-1 line-clamp-2 text-xs text-">{task.description}</p>
+            <p className="mt-2 line-clamp-2 text-xs text-muted-foreground">{task.description}</p>
           )}
-          <div className="mt-2 flex flex-wrap items-center gap-x-3 gap-y-1 text-[11px] text-gray-500">
-            <span>{PRIORITY_LABEL[task.priority]}</span>
+          <div className="mt-6 flex flex-wrap items-center gap-x-3 gap-y-1 text-[11px] md:text-base text-gray-500">
+            <span className="font-bold">{PRIORITY_LABEL[task.priority]}</span>
             {dueDate && (
               <span className={cn(overdue && "font-medium text-red-500")}>
                 {overdue ? "Overdue " : "Due "}
                 {dueDate}
               </span>
+            )}
+            {task.createdAt && (
+              <span>Created {formatDate(task.createdAt)}</span>
             )}
           </div>
         </div>
